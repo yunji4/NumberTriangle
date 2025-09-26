@@ -111,18 +111,22 @@ public class NumberTriangle {
 
 
         // TODO define any variables that you want to use to store things
+        NumberTriangle left = null; //stores the left sides
+        NumberTriangle right = null; //stores the right sing
 
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
 
         String line = br.readLine();
+        //System.out.println("first line :"+ line);
+        top = new NumberTriangle(Integer.parseInt(line));
         while (line != null) {
 
             // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
+            //System.out.println(line);
 
-            // TODO process the line
+            //ODO process the line
 
             //read the next line
             line = br.readLine();
