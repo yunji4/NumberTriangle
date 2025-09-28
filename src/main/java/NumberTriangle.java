@@ -1,4 +1,9 @@
 import java.io.*;
+import java.sql.Array;
+import java.util.List;
+import java.util.ArrayList;
+
+
 
 /**
  * This is the provided NumberTriangle class to be used in this coding task.
@@ -89,6 +94,23 @@ public class NumberTriangle {
      */
     public int retrieve(String path) {
         // TODO implement this method
+        int root_val = this.root;
+        NumberTriangle curr_root = null;
+        for  (int i = 0; i < path.length(); i++) {
+            if (path.charAt(i) == 'l') {
+                curr_root = curr_root.left;
+                root_val = curr_root.root;
+            }
+            else if (path.charAt(i) == 'r') {
+            curr_root = curr_root.right;
+            root_val = curr_root.root;
+            }
+
+            else {
+                return root_val;
+            }
+
+        }
         return -1;
     }
 
@@ -111,23 +133,35 @@ public class NumberTriangle {
 
 
         // TODO define any variables that you want to use to store things
-        NumberTriangle left = null; //stores the left sides
-        NumberTriangle right = null; //stores the right sing
 
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
 
+        List<NumberTriangle> prev_row = new ArrayList<>();
+
+
         String line = br.readLine();
-        //System.out.println("first line :"+ line);
-        top = new NumberTriangle(Integer.parseInt(line));
         while (line != null) {
+            List<NumberTriangle> curr_row = new ArrayList<>();
+            String[] curr_string = line.split(" ");
 
-            // remove when done; this line is included so running starter code prints the contents of the file
-            //System.out.println(line);
+            if (top ==null){
+                top = new NumberTriangle(Integer.parseInt(curr_string[0]));
+                prev_row.add(top);
+            }
+            else{
+                for (int i =0; i< curr_string.length; i++){
+                    curr_row.add(new  NumberTriangle(Integer.parseInt(curr_string[i])));
+                }
+                for (int i =0; i< prev_row.size(); i++){
+                    prev_row.get(i).setLeft(prev_row.get(i));
+                    prev_row.get(i).setRight(prev_row.get(i+1));
+                }
+                prev_row = curr_row;
 
-            //ODO process the line
 
+            }
             //read the next line
             line = br.readLine();
         }
