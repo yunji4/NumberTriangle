@@ -98,20 +98,32 @@ public class NumberTriangle {
         NumberTriangle curr_root = null;
         for  (int i = 0; i < path.length(); i++) {
             if (path.charAt(i) == 'l') {
-                curr_root = curr_root.left;
+
+                if (curr_root == null) {
+                    curr_root = this.left;
+                }
+                else{
+                    curr_root = curr_root.left;
+
+
+                }
+
                 root_val = curr_root.root;
             }
             else if (path.charAt(i) == 'r') {
-            curr_root = curr_root.right;
-            root_val = curr_root.root;
-            }
+                if (curr_root == null) {
+                    curr_root = this.right;
+                }
+                else{
+                    curr_root = curr_root.right;
+                }
+                root_val = curr_root.root;
 
-            else {
-                return root_val;
+
             }
 
         }
-        return -1;
+        return root_val;
     }
 
     /** Read in the NumberTriangle structure from a file.
@@ -155,8 +167,8 @@ public class NumberTriangle {
                     curr_row.add(new  NumberTriangle(Integer.parseInt(curr_string[i])));
                 }
                 for (int i =0; i< prev_row.size(); i++){
-                    prev_row.get(i).setLeft(prev_row.get(i));
-                    prev_row.get(i).setRight(prev_row.get(i+1));
+                    prev_row.get(i).setLeft(curr_row.get(i));
+                    prev_row.get(i).setRight(curr_row.get(i+1));
                 }
                 prev_row = curr_row;
 
